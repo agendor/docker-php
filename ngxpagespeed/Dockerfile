@@ -40,10 +40,6 @@ RUN  set -ex \
   && yum -y update \
   && localedef -i en_US -f UTF-8 en_US.UTF-8 \
   && sed -i "s/short_open_tag = .*/short_open_tag = On/" /etc/php.ini \
-  && easy_install \
-      supervisor \
-      supervisor-stdout \
-  && echo -e "[include]\nfiles = /etc/supervisor/conf.d/*.conf" >> /etc/supervisord.conf \
   && mkdir -p \
       /var/log/supervisor/ \
       /etc/php.secrets.d/ \
@@ -148,6 +144,13 @@ RUN  set -ex \
       /sbin/sln \
       /usr/{share/{man,doc,info,cracklib,i18n},{lib,lib64}/gconv,bin/localedef} \
       /{root,tmp,var/cache/{ldconfig,yum}}/*
+
+RUN  set -ex \
+        yum -y install easy_install \
+        && easy_install supervisor supervisor-stdout \
+        && echo_supervisord_conf > /etc/supervisord.conf
+
+RUN echo -e "[include]\nfiles = /etc/supervisor/conf.d/*.conf" >> /etc/supervisord.conf 
 
 EXPOSE 80
 
