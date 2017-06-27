@@ -38,6 +38,8 @@ RUN  set -ex \
       php-theseer-fDOMDocument \
       php-xml \
       wget \
+      zlib-devel \
+      openssl-devel \
   && yum -y update \
   && localedef -i en_US -f UTF-8 en_US.UTF-8 \
   && sed -i "s/short_open_tag = .*/short_open_tag = On/" /etc/php.ini \
@@ -51,11 +53,7 @@ RUN  set -ex \
       /var/log/supervisor/ \
       /etc/php.secrets.d/ \
       /web/agendor-web/ \
-  && yum clean all \
-  && rm -rf \
-      /sbin/sln \
-      /usr/{share/{man,doc,info,cracklib,i18n},{lib,lib64}/gconv,bin/localedef} \
-      /{root,tmp,var/cache/{ldconfig,yum}}/*
+  && yum clean all
 
 # New Relic agent
 RUN  set -ex \
@@ -63,11 +61,7 @@ RUN  set -ex \
   && rpm -Uvh http://yum.newrelic.com/pub/newrelic/el5/x86_64/newrelic-repo-5-3.noarch.rpm \
   && yum install -y newrelic-php5 \
   && newrelic-install install \
-  && yum clean all \
-  && rm -rf \
-      /sbin/sln \
-      /usr/{share/{man,doc,info,cracklib,i18n},{lib,lib64}/gconv,bin/localedef} \
-      /{root,tmp,var/cache/{ldconfig,yum}}/*
+  && yum clean all
 
 EXPOSE 80
 
