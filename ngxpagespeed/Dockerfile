@@ -125,7 +125,7 @@ RUN  set -ex \
         --with-ld-opt=' -Wl,-E' \
     " \
   && ./nginxpagespeed_install -y \
-        --nginx-version latest \
+        --nginx-version latest --ngx-pagespeed-version 1.12.34.2 \
   && yum -y remove *-devel \
   && yum -y update \
   && yum clean all
@@ -143,7 +143,7 @@ RUN  set -ex \
         && easy_install supervisor supervisor-stdout \
         && echo_supervisord_conf > /etc/supervisord.conf
 
-RUN echo -e "[include]\nfiles = /etc/supervisor/conf.d/*.conf" >> /etc/supervisord.conf 
+RUN echo -e "[include]\nfiles = /etc/supervisor/conf.d/*.conf" >> /etc/supervisord.conf
 
 EXPOSE 80
 
