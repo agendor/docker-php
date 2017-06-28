@@ -78,7 +78,6 @@ RUN  set -ex \
         unzip \
         wget \
         zlib-devel \
-        openssl-devel \
   && curl -f -L -sS -o ./nginxpagespeed_install https://ngxpagespeed.com/install \
   && sed -r -i \
         -e 's/sudo\s?//g' \
@@ -128,7 +127,11 @@ RUN  set -ex \
         --nginx-version latest --ngx-pagespeed-version 1.12.34.2 \
   && yum -y remove *-devel \
   && yum -y update \
-  && yum clean all
+  && yum clean all \
+  && rm -rf \
+      /sbin/sln \
+      /usr/{share/{man,doc,info,cracklib,i18n},{lib,lib64}/gconv,bin/localedef} \
+      /{root,tmp,var/cache/{ldconfig,yum}}/*
 
 # New Relic agent
 RUN  set -ex \
@@ -136,7 +139,11 @@ RUN  set -ex \
   && rpm -Uvh http://yum.newrelic.com/pub/newrelic/el5/x86_64/newrelic-repo-5-3.noarch.rpm \
   && yum -y install newrelic-php5 \
   && newrelic-install install \
-  && yum clean all
+  && yum clean all \
+  && rm -rf \
+      /sbin/sln \
+      /usr/{share/{man,doc,info,cracklib,i18n},{lib,lib64}/gconv,bin/localedef} \
+      /{root,tmp,var/cache/{ldconfig,yum}}/*
 
 RUN  set -ex \
         yum -y install easy_install \
