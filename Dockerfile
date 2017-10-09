@@ -7,10 +7,16 @@ RUN  set -ex \
   && rpm -Uvh http://www.city-fan.org/ftp/contrib/yum-repo/city-fan.org-release-1-13.rhel6.noarch.rpm \
   && yum install -y \
       curl \
+      gcc \
+      gcc-c++ \
+      make \
+      openssl-devel \
       mhash \
       mysql-libs \
       nginx \
+      pcre-devel \
       php \
+      php-devel \
       php-bcmath \
       php-cli \
       php-cgi \
@@ -40,9 +46,19 @@ RUN  set -ex \
       wget \
       zlib-devel \
       openssl-devel \
+  && cd /tmp \
+  && curl -LO https://github.com/edenhill/librdkafka/archive/master.tar.gz \
+  && tar xzvf master.tar.gz \
+  && cd librdkafka* \
+  && ./configure \
+  && make \
+  && make install \
+  && rm -rf librdkafka* \
   && yum -y update \
   && localedef -i en_US -f UTF-8 en_US.UTF-8 \
+  && pecl install rdkafka \
   && sed -i "s/short_open_tag = .*/short_open_tag = On/" /etc/php.ini \
+  && echo "extension=rdkafka.so" >> /etc/php.ini \
   && easy_install \
       supervisor \
       supervisor-stdout \
