@@ -38,6 +38,7 @@ RUN  set -ex \
       php-pecl-memcache \
       php-pecl-memcached \
       php-pecl-mongo \
+      php-pecl-zendopcache \
       php-pgsql \
       php-process \
       php-soap \
