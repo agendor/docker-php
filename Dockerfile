@@ -33,6 +33,7 @@ RUN  set -ex \
       php-odbc \
       php-pdo \
       php-pear \
+      php-pecl-apc \
       php-pecl-igbinary \
       php-pecl-memcache \
       php-pecl-memcached \
