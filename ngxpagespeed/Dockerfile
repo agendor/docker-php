@@ -9,6 +9,7 @@ RUN  set -ex \
       curl \
       mhash \
       mysql-libs \
+      pcre-devel \
       php \
       php-bcmath \
       php-cli \
@@ -31,6 +32,7 @@ RUN  set -ex \
       php-pecl-memcache \
       php-pecl-memcached \
       php-pecl-mongo \
+      php-pecl-zendopcache \
       php-pgsql \
       php-process \
       php-soap \
