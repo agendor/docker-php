@@ -1,10 +1,10 @@
-FROM centos:7
+FROM centos
 
 ENV TERM linux
 
 RUN  set -ex \
-  && yum install -y epel-release python-setuptools \
   && yum install -y \
+      epel-release \
       curl \
       gcc \
       gcc-c++ \
@@ -12,7 +12,6 @@ RUN  set -ex \
       openssl-devel \
       mhash \
       mysql-libs \
-      nginx \
       pcre-devel \
       php \
       php-devel \
@@ -45,16 +44,6 @@ RUN  set -ex \
       wget \
       zlib-devel \
       openssl-devel \
-  && easy_install \
-      supervisor \
-      supervisor-stdout \
-  && echo -e "[include]\nfiles = /etc/supervisor/conf.d/*.conf" >> /etc/supervisord.conf \
-  && mkdir -p \
-      /etc/nginx/ \
-      /run/nginx/ \
-      /var/log/supervisor/ \
-      /etc/php.secrets.d/ \
-      /web/agendor-web/ \
   && yum clean all
 
 # New Relic agent
@@ -67,5 +56,3 @@ RUN  set -ex \
   && yum clean all
 
 EXPOSE 80
-
-CMD ["/usr/bin/supervisord", "--nodaemon", "--configuration=/etc/supervisord.conf"]
