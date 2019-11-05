@@ -4,14 +4,14 @@ ENV TERM linux
 
 RUN  set -ex \
   && yum install -y \
-      epel-release \
       curl \
+      epel-release \
       gcc \
       gcc-c++ \
       make \
-      openssl-devel \
       mhash \
       mysql-libs \
+      openssl-devel \
       pcre-devel \
       php \
       php-devel \
@@ -41,9 +41,9 @@ RUN  set -ex \
       php-soap \
       php-theseer-fDOMDocument \
       php-xml \
+      tzdata \
       wget \
       zlib-devel \
-      openssl-devel \
   && yum clean all
 
 # New Relic agent
